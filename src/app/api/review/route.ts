@@ -36,9 +36,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Initialize the model
-    // Using gemini-2.5-pro for high quality reasoning
+    // Using gemini-1.5-flash to ensure high rate limits and max compatibility on the free tier
     const model = genAI.getGenerativeModel({
-      model: 'gemini-2.5-pro',
+      model: 'gemini-2.5-flash',
       systemInstruction: `You are an elite Staff Security and Software Engineer. Your task is to perform a rigorous code review on the provided Git diff.
 Focus on identifying security vulnerabilities, performance bottlenecks, logical bugs, and code smells.
 Analyze the changes carefully.
