@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 // Interface matching the required output
 export interface ReviewComment {
@@ -18,6 +20,11 @@ const genAI = new GoogleGenerativeAI(apiKey || '');
 
 export async function POST(request: NextRequest) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized access' }, { status: 401 });
+    }
+
     if (!apiKey) {
       return NextResponse.json(
         { error: 'GEMINI_API_KEY is not configured in environment variables' },

@@ -1,9 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const repoUrl = searchParams.get('repoUrl');
   const prNumber = searchParams.get('prNumber');
+
+  const session: any = await getServerSession(authOptions);
+  
+  if (!session) {
+    return NextResponse.json({ error: 'Unauthorized access' }, { status: 401 });
+  }
 
   if (!repoUrl) {
     return NextResponse.json(
@@ -25,13 +33,14 @@ export async function GET(request: NextRequest) {
   const owner = match[1];
   const repo = match[2].replace(/\.git$/, ''); // Clean up trailing .git if present
 
-  const token = process.env.GITHUB_TOKEN;
+  // Fallback: If global GITHUB_TOKEN isn't set, attempt to use the user's OAuth access token
+  const token = process.env.GITHUB_TOKEN || session.accessToken;
   const headers: HeadersInit = {};
   
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   } else {
-    console.warn("GITHUB_TOKEN is not set in environment variables.");
+    console.warn("No GitHub token available for API request.");
   }
 
   try {
