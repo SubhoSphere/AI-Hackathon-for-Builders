@@ -89,7 +89,7 @@ export function ReviewPanel({ repoUrl, prNumber, onBack }: ReviewPanelProps) {
   };
 
   return (
-    <div className="flex flex-col h-screen w-full bg-zinc-950 text-slate-200 font-sans selection:bg-indigo-500/30">
+    <div className="flex flex-col h-screen w-full bg-zinc-950 text-slate-200 font-sans selection:bg-[#EDCE77]/30">
       {/* Header Analytics */}
       <header className="flex-none border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-xl z-20 px-6 py-4">
         <div className="flex items-center justify-between max-w-[1600px] mx-auto">
@@ -103,7 +103,7 @@ export function ReviewPanel({ repoUrl, prNumber, onBack }: ReviewPanelProps) {
             <div className="h-6 w-px bg-zinc-800"></div>
             <div>
               <h2 className="text-lg font-semibold text-white flex items-center gap-2">
-                <TerminalSquare className="w-5 h-5 text-indigo-400" />
+                <TerminalSquare className="w-5 h-5 text-[#EDCE77]" />
                 AI Review Arena
                 <span className="text-slate-500 text-sm font-mono ml-2 border border-white/10 px-2 py-0.5 rounded-md bg-white/5">PR #{prNumber}</span>
               </h2>
@@ -136,13 +136,13 @@ export function ReviewPanel({ repoUrl, prNumber, onBack }: ReviewPanelProps) {
       <div className="flex-1 overflow-hidden relative">
         {isLoading ? (
           <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-zinc-950/90 backdrop-blur-sm">
-            <div className="flex items-center gap-5 text-indigo-400 mb-8 border border-indigo-500/20 bg-indigo-500/5 px-6 py-4 rounded-2xl shadow-2xl shadow-indigo-500/10">
+            <div className="flex items-center gap-5 text-[#EDCE77] mb-8 border border-[#EDCE77]/20 bg-[#EDCE77]/5 px-6 py-4 rounded-2xl shadow-2xl shadow-[#EDCE77]/10">
               <Loader2 className="w-8 h-8 animate-spin" />
-              <div className="h-8 w-px bg-indigo-500/20"></div>
-              <h3 className="text-xl font-mono animate-pulse tracking-tight text-indigo-100">AI Agent Analyzing Code Topology...</h3>
+              <div className="h-8 w-px bg-[#EDCE77]/20"></div>
+              <h3 className="text-xl font-mono animate-pulse tracking-tight text-[#EDCE77]/90">AI Agent Analyzing Code Topology...</h3>
             </div>
             <div className="w-96 h-1.5 bg-zinc-900 rounded-full overflow-hidden border border-zinc-800">
-              <div className="h-full bg-indigo-500 w-1/2 animate-[pulse_1.5s_ease-in-out_infinite] rounded-full shadow-[0_0_10px_rgba(99,102,241,0.8)]"></div>
+              <div className="h-full bg-[#EDCE77] w-1/2 animate-[pulse_1.5s_ease-in-out_infinite] rounded-full shadow-[0_0_10px_rgba(237,206,119,0.8)]"></div>
             </div>
           </div>
         ) : error ? (
@@ -224,7 +224,7 @@ export function ReviewPanel({ repoUrl, prNumber, onBack }: ReviewPanelProps) {
                           <p className="text-sm text-zinc-400 leading-relaxed">{comment.description}</p>
                           
                           {/* Split Screen View Mode / Code Block */}
-                          <div className="rounded-lg bg-zinc-950 p-4 border border-zinc-850 font-mono text-xs overflow-x-auto text-emerald-400 shadow-inner">
+                          <div className="rounded-lg bg-zinc-950 p-4 border border-zinc-850 font-mono text-xs overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] text-emerald-400 shadow-inner">
                             <span className="text-zinc-600 select-none">// Recommended Secure Patch:</span>
                             <pre className="mt-1.5">{comment.fix}</pre>
                           </div>
@@ -267,7 +267,7 @@ function highlightDiff(diff: string) {
   return diff.split('\n').map(line => {
     if (line.startsWith('+')) return `<span class="text-emerald-400 bg-emerald-500/10 block px-4 border-l-2 border-emerald-500">${escapeHtml(line)}</span>`;
     if (line.startsWith('-')) return `<span class="text-red-400 bg-red-500/10 block px-4 border-l-2 border-red-500">${escapeHtml(line)}</span>`;
-    if (line.startsWith('@@')) return `<span class="text-indigo-400 font-bold block px-4 py-2 bg-indigo-500/5 mt-4 border-y border-indigo-500/10">${escapeHtml(line)}</span>`;
+    if (line.startsWith('@@')) return `<span class="text-[#EDCE77] font-bold block px-4 py-2 bg-[#EDCE77]/5 mt-4 border-y border-[#EDCE77]/10">${escapeHtml(line)}</span>`;
     return `<span class="block px-4 text-slate-400/80">${escapeHtml(line)}</span>`;
   }).join('');
 }

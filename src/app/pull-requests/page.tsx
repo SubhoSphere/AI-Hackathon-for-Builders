@@ -70,25 +70,36 @@ function PullRequestsContent() {
   const repoName = repoUrl ? repoUrl.replace("https://github.com/", "") : "Repository";
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-slate-50 font-sans selection:bg-indigo-500/30">
-      <header className="border-b border-white/10 bg-zinc-950/50 backdrop-blur-md sticky top-0 z-10 px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-4">
+    <div className="w-full min-h-screen font-sans selection:bg-indigo-500/30">
+      <div className="max-w-5xl mx-auto px-6 pt-8 pb-6 flex items-center justify-between border-b border-white/[0.04]">
+        <div className="flex items-center gap-3">
           <button 
-            onClick={() => router.push("/")}
-            className="p-2 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 transition-colors text-slate-300 flex items-center gap-2"
+            onClick={() => router.push("/dashboard")}
+            className="flex items-center gap-2 text-[13px] font-medium text-zinc-500 hover:text-zinc-300 transition-colors group"
           >
-            <ArrowLeft className="w-4 h-4" />
-            <span className="text-sm font-medium pr-1">Back to Workspace</span>
+            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
+            Dashboard
           </button>
-          <div className="h-6 w-px bg-white/10"></div>
-          <h1 className="text-lg font-bold tracking-tight text-white flex items-center gap-2">
-            <GitPullRequest className="w-5 h-5 text-indigo-400" />
-            Pull Requests <span className="text-slate-500 font-normal">/</span> <span className="text-indigo-200">{repoName}</span>
+          
+          <span className="text-zinc-700">/</span>
+          
+          <div className="flex items-center gap-2 bg-white/[0.02] border border-white/[0.06] rounded-md px-2.5 py-1">
+            <img src="/github.png" alt="GitHub" className="w-3.5 h-3.5 opacity-70" />
+            <span className="text-[13px] font-medium text-zinc-300 truncate max-w-[250px]">
+              {repoName}
+            </span>
+          </div>
+          
+          <span className="text-zinc-700">/</span>
+          
+          <h1 className="text-[13px] font-semibold text-white flex items-center gap-1.5">
+            <GitPullRequest className="w-3.5 h-3.5 text-[#EDCE77]" />
+            Pull Requests
           </h1>
         </div>
-      </header>
+      </div>
 
-      <main className="max-w-5xl mx-auto px-6 py-12">
+      <main className="max-w-5xl mx-auto px-6 py-8">
         {/* Loading Skeletons */}
         {isFetchingPRs && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-pulse">
@@ -139,10 +150,10 @@ function PullRequestsContent() {
             {pullRequests.map((pr) => (
               <div
                 key={pr.id}
-                className="group bg-zinc-900 border border-white/10 rounded-3xl p-6 hover:border-indigo-500/40 hover:bg-zinc-900/80 transition-all duration-300 flex flex-col justify-between shadow-xl shadow-black/20 relative overflow-hidden"
+                className="group bg-zinc-900 border border-white/10 rounded-3xl p-6 hover:border-[#EDCE77]/40 hover:bg-zinc-900/80 transition-all duration-300 flex flex-col justify-between shadow-xl shadow-black/20 relative overflow-hidden"
               >
                 {/* Micro-animation gradient sweep */}
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#EDCE77]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
                 <div className="relative z-10">
                   <div className="flex items-center justify-between mb-5">
@@ -155,7 +166,7 @@ function PullRequestsContent() {
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-semibold text-slate-100 mb-5 line-clamp-2 leading-snug group-hover:text-indigo-200 transition-colors">
+                  <h3 className="text-xl font-semibold text-slate-100 mb-5 line-clamp-2 leading-snug group-hover:text-[#EDCE77] transition-colors">
                     {pr.title}
                   </h3>
 
@@ -173,7 +184,7 @@ function PullRequestsContent() {
 
                 <button
                   onClick={() => setSelectedPrNumber(pr.number)}
-                  className="relative z-10 w-full flex items-center justify-center gap-2 py-3.5 px-4 bg-white/5 hover:bg-indigo-600 border border-white/10 hover:border-indigo-500 rounded-xl text-sm font-semibold transition-all group-hover:shadow-lg group-hover:shadow-indigo-500/25"
+                  className="relative z-10 w-full flex items-center justify-center gap-2 py-3.5 px-4 bg-white/5 hover:bg-[#EDCE77] hover:text-[#111110] border border-white/10 hover:border-[#EDCE77] rounded-xl text-sm font-semibold transition-all group-hover:shadow-lg group-hover:shadow-[#EDCE77]/20"
                 >
                   Analyze Code Changes
                   <ChevronRight className="w-4 h-4" />
