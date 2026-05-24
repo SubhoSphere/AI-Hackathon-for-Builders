@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Search, FolderGit2, AlertCircle, Loader2, GitPullRequest, ChevronRight, FolderGit2Icon, Lock, Unlock, LogOut, CheckCircle2 } from "lucide-react";
 import { ReviewPanel } from "@/components/review-panel";
 import { SessionProvider, useSession, signIn, signOut } from "next-auth/react";
+import Link from "next/link";
 
 interface PullRequest {
   id: number;
@@ -142,13 +143,13 @@ function DashboardContent() {
             <p className="text-xl text-slate-400 max-w-2xl mb-12 leading-relaxed">
               Automate your pull request audits instantly. Connect your GitHub account to scan for vulnerabilities, performance bottlenecks, and code smells before merging.
             </p>
-            <button
-              onClick={() => signIn('github')}
+            <Link
+              href="/login"
               className="group flex items-center gap-3 px-8 py-4 bg-white hover:bg-slate-100 text-zinc-950 font-bold rounded-2xl transition-all shadow-xl shadow-white/10 hover:shadow-white/20 hover:-translate-y-1 text-lg"
             >
               <FolderGit2Icon className="w-6 h-6" />
               Authenticate via GitHub Secure OAuth
-            </button>
+            </Link>
           </div>
         )}
 
@@ -335,9 +336,5 @@ function DashboardContent() {
  * Ensures strict client-side context distribution for NextAuth
  */
 export default function Dashboard() {
-  return (
-    <SessionProvider>
-      <DashboardContent />
-    </SessionProvider>
-  );
+  return <DashboardContent />;
 }
