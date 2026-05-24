@@ -22,8 +22,7 @@ export const authOptions: NextAuthOptions = {
       authorization: {
         url: "https://github.com/login/oauth/authorize",
         params: {
-          scope: "repo read:user",
-          client_id: process.env.GITHUB_CLIENT_ID,
+          scope: "", // GitHub Apps DO NOT support scope parameters
         },
       },
     }),
