@@ -1,5 +1,10 @@
 # ⚡ AI-Powered Code Review Assistant
 
+<div align="center">
+  <img src="https://res.cloudinary.com/drfodwc7q/image/upload/v1779635012/RoomHover_1_umuxog.png" alt="Revio AI-Powered Code Review Assistant Banner" width="100%" />
+</div>
+
+
 > **Accelerate Developer Velocity. Fortify Your Codebase. Automate QA.**
 > An elite, AI-driven Staff Engineer that reviews your Pull Requests in milliseconds.
 

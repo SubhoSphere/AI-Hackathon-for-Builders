@@ -63,7 +63,7 @@ export default function HomePage() {
               <ArrowRight className="w-4 h-4" />
             </Link>
             <a
-              href="https://github.com"
+              href="https://github.com/SubhoSphere/AI-Hackathon-for-Builders"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.1] text-zinc-300 font-medium px-7 py-3 rounded-full transition-all hover:scale-[1.02] active:scale-[0.97] flex items-center gap-2 text-[15px]"
