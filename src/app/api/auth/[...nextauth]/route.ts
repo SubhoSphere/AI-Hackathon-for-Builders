@@ -25,9 +25,16 @@ export const authOptions: NextAuthOptions = {
           scope: "", // GitHub Apps DO NOT support scope parameters
         },
       },
+      httpOptions: {
+        timeout: 10000,
+      },
     }),
   ],
   callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      console.log("[NEXTAUTH_DEBUG] SIGN IN ATTEMPT", { user, account, profile });
+      return true;
+    },
     async jwt({ token, account }) {
       // Save the access token to the token state payload if it exists
       if (account?.access_token) {
@@ -46,6 +53,7 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/login',
   },
+  debug: true,
 };
 
 const handler = NextAuth(authOptions);
