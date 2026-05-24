@@ -60,7 +60,7 @@ function DashboardContent() {
           <div className="p-2 bg-indigo-500/10 rounded-xl border border-indigo-500/20 shadow-inner">
             <FolderGit2 className="w-5 h-5" />
           </div>
-          <h1 className="text-xl font-bold tracking-tight text-white">AI Code Auditor</h1>
+          <h1 className="text-xl font-bold tracking-tight text-white">AI  Auditor</h1>
         </div>
 
         {status === "authenticated" && session?.user && (
