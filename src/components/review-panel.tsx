@@ -192,68 +192,60 @@ export function ReviewPanel({ repoUrl, prNumber, onBack }: ReviewPanelProps) {
                     <p className="text-slate-400 text-lg">The AI Agent found zero security flaws or bugs in this PR.</p>
                   </div>
                 ) : (
-                  comments.map((comment, idx) => {
-                    const cfg = getSeverityConfig(comment.severity);
-                    const Icon = cfg.icon;
-                    const isApplied = appliedFixes.has(idx);
-
+                  comments.map((comment, index) => {
+                    const isCritical = comment.severity?.toUpperCase() === "CRITICAL";
+                    const isApplied = appliedFixes.has(index);
+                    
                     return (
-                      <div key={idx} className={`bg-[#121214] border ${cfg.border} rounded-2xl overflow-hidden shadow-xl shadow-black/40 transition-all duration-300 hover:border-indigo-500/30 group`}>
-                        {/* Card Header */}
-                        <div className={`px-5 py-3 ${cfg.bg} border-b ${cfg.border} flex items-center justify-between`}>
-                          <div className="flex items-center gap-3">
-                            <Icon className={`w-5 h-5 ${cfg.color}`} />
-                            <span className={`text-xs font-bold tracking-widest uppercase ${cfg.color}`}>
-                              {comment.severity} • {comment.category}
-                            </span>
+                      <div 
+                        key={index} 
+                        className={`border rounded-xl bg-zinc-900/80 overflow-hidden transition-all duration-200 ${
+                          isCritical ? "border-rose-500/30 shadow-lg shadow-rose-950/20" : "border-zinc-800"
+                        }`}
+                      >
+                        {/* Header Banner */}
+                        <div className={`px-4 py-2.5 flex items-center justify-between border-b ${
+                          isCritical ? "bg-rose-500/10 border-rose-500/20" : "bg-zinc-900 border-zinc-800"
+                        }`}>
+                          <div className="flex items-center gap-2">
+                            <span className={`w-2 h-2 rounded-full ${isCritical ? "bg-rose-500 animate-pulse" : "bg-amber-400"}`} />
+                            <span className="text-xs font-mono text-zinc-400">{comment.file} : Line {comment.line}</span>
                           </div>
-                          <div className="text-xs font-mono text-slate-400 bg-black/40 border border-white/5 px-2.5 py-1 rounded-md shadow-inner">
-                            {comment.file} <span className="text-indigo-400 font-bold ml-1">:{comment.line}</span>
-                          </div>
+                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider ${
+                            isCritical ? "bg-rose-500/20 text-rose-400" : "bg-amber-500/20 text-amber-400"
+                          }`}>
+                            {comment.severity || "Warning"}
+                          </span>
                         </div>
 
-                        {/* Card Body */}
-                        <div className="p-6">
-                          <h4 className="text-lg font-semibold text-slate-100 mb-3 leading-snug group-hover:text-indigo-200 transition-colors">{comment.title}</h4>
-                          <p className="text-slate-400 text-sm mb-6 leading-relaxed">
-                            {comment.description}
-                          </p>
-
-                          {/* Code Block Fix */}
-                          <div className="bg-[#0a0a0c] border border-zinc-800/80 rounded-xl overflow-hidden mb-6 shadow-inner">
-                            <div className="px-4 py-2 bg-zinc-900 border-b border-zinc-800 flex items-center justify-between">
-                              <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Suggested Fix</span>
-                              <span className="text-indigo-400/50 font-mono text-xs">AI Generated</span>
-                            </div>
-                            <div className="p-4 overflow-x-auto text-sm font-mono text-emerald-300">
-                              <ReactMarkdown
-                                components={{
-                                  pre: ({node, ...props}) => <pre className="m-0" {...props} />,
-                                  code: ({node, ...props}) => <code className="bg-transparent text-emerald-300 font-mono" {...props} />
-                                }}
-                              >
-                                {comment.fix}
-                              </ReactMarkdown>
-                            </div>
+                        {/* Content Body */}
+                        <div className="p-5 space-y-4">
+                          <h3 className="text-lg font-bold text-zinc-100">{comment.title}</h3>
+                          <p className="text-sm text-zinc-400 leading-relaxed">{comment.description}</p>
+                          
+                          {/* Split Screen View Mode / Code Block */}
+                          <div className="rounded-lg bg-zinc-950 p-4 border border-zinc-850 font-mono text-xs overflow-x-auto text-emerald-400 shadow-inner">
+                            <span className="text-zinc-600 select-none">// Recommended Secure Patch:</span>
+                            <pre className="mt-1.5">{comment.fix}</pre>
                           </div>
 
                           {/* Action Button */}
                           <button
-                            onClick={() => handleApplyFix(idx)}
+                            onClick={() => handleApplyFix(index)}
                             disabled={isApplied}
-                            className={`w-full py-3 rounded-xl font-medium text-sm flex items-center justify-center gap-2 transition-all ${
+                            className={`w-full py-2.5 mt-2 rounded-lg font-medium text-sm flex items-center justify-center gap-2 transition-all ${
                               isApplied 
                                 ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 cursor-default"
-                                : "bg-white/5 hover:bg-indigo-600 border border-white/10 hover:border-indigo-500 text-white shadow-lg"
+                                : "bg-white/5 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-zinc-300"
                             }`}
                           >
                             {isApplied ? (
                               <>
-                                <CheckCircle2 className="w-5 h-5" />
+                                <CheckCircle2 className="w-4 h-4" />
                                 Fix Applied Successfully
                               </>
                             ) : (
-                              "Apply Fix to Codebase"
+                              "Apply Patch to Codebase"
                             )}
                           </button>
                         </div>
